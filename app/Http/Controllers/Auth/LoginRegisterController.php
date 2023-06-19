@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,6 @@ class LoginRegisterController extends Controller
     /**
      * Display a registration form.
      *
-     * @return \Illuminate\Http\Response
      */
     public function register()
     {
@@ -31,10 +31,11 @@ class LoginRegisterController extends Controller
     }
 
     /**
-     * Store a new user.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store new user
+     *
+     * @param Request $request
+     * @return mixed
      */
     public function store(Request $request)
     {
@@ -60,7 +61,6 @@ class LoginRegisterController extends Controller
     /**
      * Display a login form.
      *
-     * @return \Illuminate\Http\Response
      */
     public function login()
     {
@@ -68,19 +68,22 @@ class LoginRegisterController extends Controller
     }
 
     /**
-     * Authenticate the user.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Authenticate a user
+     *
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function authenticate(Request $request)
     {
+        $remember = $request->input('remember_me');
+
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials))
+        if(Auth::attempt($credentials, $remember))
         {
             $request->session()->regenerate();
             return redirect()->route('onlyPaws')
@@ -96,7 +99,6 @@ class LoginRegisterController extends Controller
     /**
      * Display a onlyPaws to authenticated users.
      *
-     * @return \Illuminate\Http\Response
      */
     public function onlyPaws()
     {
@@ -114,8 +116,6 @@ class LoginRegisterController extends Controller
     /**
      * Log out the user from application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
     {

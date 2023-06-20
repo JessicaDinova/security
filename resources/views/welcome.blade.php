@@ -4,9 +4,9 @@
     <div class="row justify-content-center mt-5">
         @if (Route::has('login'))
             @auth
-            <h1>To see our pictures click on onlyPaws button in navigation</h1>
+            <h1>To see our pictures click on sweet pics button in navigation</h1>
             @else
-        <h1>To see our wonderfull pictures please log in or register</h1>
+        <h1>To see our wonderful pictures please log in or register</h1>
     </div>
     @endauth
     @endif

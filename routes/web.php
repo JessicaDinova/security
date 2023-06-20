@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\Auth\SubscriberController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +27,12 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/onlyPaws', 'onlyPaws')->name('onlyPaws');
     Route::post('/logout', 'logout')->name('logout');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::resource('/subscribers', SubscriberController::class);
+});
+
+
+
+
 

@@ -14,4 +14,11 @@ class Subscriber extends Model
         'surname',
         'moneySpent',
     ];
+
+    public function premiumSubscriber() {
+        if($this->moneySpent < 50) {
+            return false;
+        }
+        return true;
+    }
 }

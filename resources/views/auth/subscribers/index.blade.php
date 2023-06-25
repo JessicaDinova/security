@@ -7,7 +7,7 @@
             <a href="{{route('subscribers.create')}}" class="button" style="text-decoration: none">Add new subscriber</a>
         </div>
 
-        <table class="table is-striped has-text-centered">
+        <table class="table has-text-centered">
             <thead>
             <tr>
                 <th class="has-text-centered">ID</th>
@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             @foreach($subscribers as $subscriber)
-                <tr>
+                <tr class="@if($subscriber->premiumSubscriber()) blue @endif">
                     <td>{{$subscriber->id}}</td>
                     <td>{{$subscriber->name}}</td>
                     <td>{{$subscriber->surname}}</td>
